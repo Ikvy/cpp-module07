@@ -6,43 +6,76 @@
 /*   By: mmidon <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:37:50 by mmidon            #+#    #+#             */
-/*   Updated: 2023/03/22 10:54:20 by mmidon           ###   ########.fr       */
+/*   Updated: 2023/03/22 16:07:03 by mmidon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Array.hpp"
 
-Array::Array()
+template<typename T>
+Array<T>::Array()
 {
-	this = new Array;
-	this = NULL;
+	this->array = new T;
+	this->array = nullptr;
 	this->countSize = 0;
 	std::cout << "Array default constructor" << std::endl;
 }
 
-Array::Array(unsigned int n)
+template<typename T>
+Array<T>::~Array()
 {
-	this = new Array[n];
-	for (int i = 0; i < n; i++)
-		arary[i] = 0;
-	this->countSize = T;
+	delete this->array;
+	std::cout << "Array destructor" << std::endl;
+}
+
+template<typename T>
+Array<T>::Array(const Array<T>& cpy)
+{
+	std::cout << "Array copy constructor" << std::endl;
+	this->array = new T(cpy.size());
+	this->countSize = cpy.size();
+	for (size_t i = 0; i < this->countSize; i++)
+		this->array[i] = cpy.getArray()[i];
+}
+
+template<typename T>
+Array<T>::Array(unsigned int n)
+{
+	this->array = new T[n];
+	for (unsigned int  i = 0; i < n; i++)
+		array[i] = 0;
+	this->countSize = n;
 	std::cout << "Array sized constructor" << std::endl;
 }
 
-Array::Array(const Array& cpy)
+template<typename T>
+Array<T>& Array<T>::operator=(const Array& cpy)
 {
-	std::cout << "Array copy constructor" << std::endl;
-	*this = cpy;
-}
-
-Array& operator=(const Array& a)
-{
-	*this = new Array(a);
-	this->countSize = a.size();
+	if (this->array)
+		delete this->array;
+	this->array = new T(cpy.size());
+	this->countSize = cpy.size();
+	for (size_t i = 0; i < this->countSize; i++)
+		this->array[i] = cpy.getArray()[i];
 	return (*this);
 }
 
-size_t Array::size()
+template<typename T>
+T&	Array<T>::operator[](std::size_t index)
+{
+	if (index >= this->size())
+		throw(Array<T>::OutOfBound());
+	return this->array[index];
+}
+
+template<typename T>
+size_t Array<T>::size() const
 {
 	return (this->countSize);
+}
+
+template<typename T>
+T* Array<T>::getArray() const
+{
+	return (this->array);
 }
