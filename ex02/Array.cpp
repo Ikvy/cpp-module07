@@ -6,7 +6,7 @@
 /*   By: mmidon <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:37:50 by mmidon            #+#    #+#             */
-/*   Updated: 2023/03/22 16:07:03 by mmidon           ###   ########.fr       */
+/*   Updated: 2023/03/24 10:09:50 by mmidon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 template<typename T>
 Array<T>::Array()
 {
-	this->array = new T;
 	this->array = nullptr;
 	this->countSize = 0;
 	std::cout << "Array default constructor" << std::endl;

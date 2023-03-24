@@ -6,7 +6,7 @@
 /*   By: mmidon <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:20:49 by mmidon            #+#    #+#             */
-/*   Updated: 2023/03/22 16:06:29 by mmidon           ###   ########.fr       */
+/*   Updated: 2023/03/24 10:26:21 by mmidon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,50 @@ void	deep_copy_test()
 
 void	modif_test()
 {
+	std::cout << "\n\n\n MODIF TEST\n";
 	Array<char> test(4);
+
+	std::cout << "test content : \n";
+	for(int i = 0; i < 4; i++)
+		std::cout << test[i] << "$" << std::endl;
+	test[2] = 'a';
+	std::cout << "test content after modif: \n";
+	for(int i = 0; i < 4; i++)
+		std::cout << test[i] << "$"  << std::endl;
+
+	Array<char> testcpy(test);
+	std::cout << "test copy content : \n";
+	for(int i = 0; i < 4; i++)
+		std::cout << testcpy[i] << "$"  << std::endl;
+	testcpy[0] = 'b';
+	std::cout << "test copy content after modif : \n";
+	for(int i = 0; i < 4; i++)
+		std::cout << testcpy[i] << "$"  << std::endl;
+	std::cout << "test content after copy modif : \n";
+	for(int i = 0; i < 4; i++)
+		std::cout << test[i] << "$"  << std::endl;
+}
+
+void	error_test()
+{
+	std::cout << "\n\n\nERROR TEST\n";
+	Array<float> oskour;
+	std::cout << "array size : " << oskour.size() << std::endl;
+	oskour[3] = 0.2;
 }
 
 int main()
 {
 	basic_int_test();
-	system("leaks ex02");
 	deep_copy_test();
 	modif_test();
+	try
+	{
+		error_test();
+	}
+	catch (std::exception &e)
+	{
+		std::cout << "Exception caught : " << e.what() << std::endl;
+	}
+//	system("leaks ex02");
 }
